@@ -1,0 +1,268 @@
+{
+  "halokit": "1.0.0",
+  "engine": "1",
+  "job": {
+    "audio": "../assets/audio/living-frames.mp3",
+    "images": [
+      "../assets/images/visual-01.png",
+      "../assets/images/visual-02.png",
+      "../assets/images/visual-03.png",
+      "../assets/images/visual-04.png",
+      "../assets/images/visual-05.png",
+      "../assets/images/visual-06.png",
+      "../assets/images/visual-07.png",
+      "../assets/images/visual-09.png",
+      "../assets/images/visual-10.png",
+      "../assets/images/visual-11.png",
+      "../assets/images/visual-12.png",
+      "../assets/images/visual-13.png",
+      "../assets/images/visual-14.png",
+      "../assets/images/visual-15.png",
+      "../assets/images/visual-16.png",
+      "../assets/images/visual-17.png",
+      "../assets/images/visual-18.png",
+      "../assets/images/visual-19.png",
+      "../assets/images/visual-20.png",
+      "../assets/images/visual-21.png",
+      "../assets/images/visual-22.png",
+      "../assets/images/visual-23.png",
+      "../assets/images/visual-24.png",
+      "../assets/images/visual-25.png",
+      "../assets/images/visual-26.png",
+      "../assets/images/visual-27.png",
+      "../assets/images/visual-28.png",
+      "../assets/images/visual-29.png",
+      "../assets/images/visual-30.png",
+      "../assets/images/visual-31.png",
+      "../assets/images/visual-32.png",
+      "../assets/images/visual-33.png",
+      "../assets/images/visual-34.png",
+      "../assets/images/visual-35.png",
+      "../assets/images/visual-36.png",
+      "../assets/images/visual-37.png",
+      "../assets/images/visual-38.png",
+      "../assets/images/visual-39.png",
+      "../assets/images/visual-40.png",
+      "../assets/images/visual-41.png"
+    ],
+    "output": "living-frames-halo.png",
+    "kind": "still",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "seed": 11,
+    "start": 0.0,
+    "duration": null,
+    "still_at": null,
+    "halo": 1.0,
+    "image_order": "shuffle",
+    "beats_per_change": 16,
+    "min_hold": 6.5,
+    "fallback_min": 15.0,
+    "fallback_max": 24.0,
+    "crossfade": 1.35,
+    "grain": 1.0,
+    "show_brand": true,
+    "brand": "RISE RADIO",
+    "subbrand": "SYBERLABS \u00b7 AUDIO/IMAGE REACTIVE SYSTEM",
+    "font": null,
+    "title": null,
+    "crf": 20,
+    "preset": "medium",
+    "audio_bitrate": "192k"
+  },
+  "inputs": {
+    "audio": {
+      "path": "../assets/audio/living-frames.mp3",
+      "sha256": "618978eacfc34ba2d873f09ea53f3b2d1410de390739550412881ff9e1a06262",
+      "seconds": 251.56
+    },
+    "images": [
+      {
+        "path": "../assets/images/visual-01.png",
+        "sha256": "0a19c3aba2a8538565f832ba316332ff1d69033e3056d6af68565781a85d8848"
+      },
+      {
+        "path": "../assets/images/visual-02.png",
+        "sha256": "9c401c9988f56278e805d786f39804d7ff40b2eca4cbf92999f9a13a95239707"
+      },
+      {
+        "path": "../assets/images/visual-03.png",
+        "sha256": "183c4b843f97eb3da191ccbd11f6053fe6ef6c7fa11e2b63429b1ce97c7dc278"
+      },
+      {
+        "path": "../assets/images/visual-04.png",
+        "sha256": "b902bff4266553899d65390e958ef0a1c62ada96900f1baba6a98cb3ebf8aec0"
+      },
+      {
+        "path": "../assets/images/visual-05.png",
+        "sha256": "53391140965614d5cc5b5dc716fc233141a500d40dde2ef8ea5392d6130c76dc"
+      },
+      {
+        "path": "../assets/images/visual-06.png",
+        "sha256": "8120e64430af36b5ab6826425c04f7f84ab0bf051eb72612f5892d8d631945ab"
+      },
+      {
+        "path": "../assets/images/visual-07.png",
+        "sha256": "dc918d732fd5fa95f1d59cbb5130110b4e0bb7958c7af0feb44026d152e6a5ab"
+      },
+      {
+        "path": "../assets/images/visual-09.png",
+        "sha256": "26db29e8f25913928b9ad739594bf237abcf767f42fb3f0f62c0df955c96ec57"
+      },
+      {
+        "path": "../assets/images/visual-10.png",
+        "sha256": "37697c0f8767c5fe630f17a0aa850bad0c420f5f6b86f1ed0e156800bd3f4341"
+      },
+      {
+        "path": "../assets/images/visual-11.png",
+        "sha256": "8e8620801f90f5cebedc0b245fe9f75457b8a14c94bcf302198e4267a240250f"
+      },
+      {
+        "path": "../assets/images/visual-12.png",
+        "sha256": "48a0bc8f3d41e68c67e1de9f0879bbf014200b5032b4957fbfbe34eafeced8fd"
+      },
+      {
+        "path": "../assets/images/visual-13.png",
+        "sha256": "9cfe188398fb261c7543a978cb9359c851a6ca885a3c70a253e5be8113c25718"
+      },
+      {
+        "path": "../assets/images/visual-14.png",
+        "sha256": "064e7c0318ead734e07f7ae062145735e83858ec63f6c30143d04fbc0de90723"
+      },
+      {
+        "path": "../assets/images/visual-15.png",
+        "sha256": "77e30bcd5a9dfc94240191403deb9dc91278b8881bca742469fdbfaaf3b0f73e"
+      },
+      {
+        "path": "../assets/images/visual-16.png",
+        "sha256": "616790fef39cab28e566dac81ef57961488d2be5d45cf6947f03cb0e0ffd6815"
+      },
+      {
+        "path": "../assets/images/visual-17.png",
+        "sha256": "1f3d51c8203a615093bb8f054e489998136ba10e15ee545371f95bdd6f9f9503"
+      },
+      {
+        "path": "../assets/images/visual-18.png",
+        "sha256": "b8e37c4914f4ab299042d4b05f809fa0fa81350f68f6fec4531f8a612918b38f"
+      },
+      {
+        "path": "../assets/images/visual-19.png",
+        "sha256": "aa93b9a38af31eb7952fb21516e33c965b1cce63e71a0e0194508d488e75b442"
+      },
+      {
+        "path": "../assets/images/visual-20.png",
+        "sha256": "0a3a224c8bb1300c3500f32871c53936e878ff0e6af3abc30733d5d1bf1453b1"
+      },
+      {
+        "path": "../assets/images/visual-21.png",
+        "sha256": "4381bc8e3a4496080e57294d6e738c91391d221b5077c25955b59c95bcf3fc82"
+      },
+      {
+        "path": "../assets/images/visual-22.png",
+        "sha256": "781283d20b3a7c0d2d9e3fa177171a24c0115893f12a6413db137c350e25fccb"
+      },
+      {
+        "path": "../assets/images/visual-23.png",
+        "sha256": "49aed50783338816f308ad0fc654972eaad7fef6e63dbbfa9775a873f9d8c2fc"
+      },
+      {
+        "path": "../assets/images/visual-24.png",
+        "sha256": "fa22efa90b2c3e91601be267769a6a0032381fa9db12951d0f099e6f512dbcf1"
+      },
+      {
+        "path": "../assets/images/visual-25.png",
+        "sha256": "48fc39341d504d30cb34a6cf58a907249e165f72883944f97cdc6a2013c9921f"
+      },
+      {
+        "path": "../assets/images/visual-26.png",
+        "sha256": "e41c1fb16fb6fc8662e933f567c402ac53fcc57c33d6c868b5617802b8bc9a82"
+      },
+      {
+        "path": "../assets/images/visual-27.png",
+        "sha256": "4527016d7b857bb9c9d7e5413fb2415d233123eb1bd959559c9094e85394f431"
+      },
+      {
+        "path": "../assets/images/visual-28.png",
+        "sha256": "1d90a4d4b2df1d05fd135c325a020445e0d3eccfed1f9ba900aa244e09179c2e"
+      },
+      {
+        "path": "../assets/images/visual-29.png",
+        "sha256": "1ac6113c1c371da4eca0a2a0699bd0db96adc26d1602ba0426fb490e13066983"
+      },
+      {
+        "path": "../assets/images/visual-30.png",
+        "sha256": "796e8fe49e595178b36e6fc279f91dfe36543087599bf36418d36a75e3b971c3"
+      },
+      {
+        "path": "../assets/images/visual-31.png",
+        "sha256": "6a6b0ac6b5b841d9363321426e278842646c2d5de047e5e48c07c7ece862a10a"
+      },
+      {
+        "path": "../assets/images/visual-32.png",
+        "sha256": "dfdaecbfaf3eed9b1db1aaef10fe6441e77baee87e43c3c83fc41f25c67f047f"
+      },
+      {
+        "path": "../assets/images/visual-33.png",
+        "sha256": "441672a66b03986e6d886e29753e441b216f6e9a86bc89cbfd8e48f26907e960"
+      },
+      {
+        "path": "../assets/images/visual-34.png",
+        "sha256": "08d4f7194dc4c0c86834fd6f616273ca9e127d79f4f1f9238ec7be1111c5a755"
+      },
+      {
+        "path": "../assets/images/visual-35.png",
+        "sha256": "72f64bffc4cd1cad05407b5fe9c37b1e6fbfe2188b7dfbc60c56f1645eb81291"
+      },
+      {
+        "path": "../assets/images/visual-36.png",
+        "sha256": "0a23d77b409885940c7e27d1047b42587f2eea5a8b8906bb961963b1887fa569"
+      },
+      {
+        "path": "../assets/images/visual-37.png",
+        "sha256": "ea0c7aaca86cdd7f4fb176bf9da579c3ed324a06c3f8f3fc66a829f79a5bb2bc"
+      },
+      {
+        "path": "../assets/images/visual-38.png",
+        "sha256": "c69336f3498d6ffd4213702346b1d8af7c9d57b4f3a8881358b65e9bbcb22f5a"
+      },
+      {
+        "path": "../assets/images/visual-39.png",
+        "sha256": "48110317de313be878151dff51e82683db03be70e3641d495c11e240e08b3700"
+      },
+      {
+        "path": "../assets/images/visual-40.png",
+        "sha256": "6b3bf8cd8dad3b0259385fb802e7d301572ffe63cdc4480e2cd4836f7faf9ea9"
+      },
+      {
+        "path": "../assets/images/visual-41.png",
+        "sha256": "db1e8a8c4279b8236897b90a4792ac8969347390866a4c42820744b25b36a81b"
+      }
+    ],
+    "font": {
+      "path": "C:\\Windows\\Fonts\\segoeuib.ttf",
+      "sha256": "aeb9e4a6ec5cc59f4d72df8189032d7dbb28f45161cf1552174818b5465dac4e"
+    }
+  },
+  "env": {
+    "python": "3.11.4",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "pillow": "12.3.0",
+    "imageio_ffmpeg": "0.6.0",
+    "ffmpeg": "ffmpeg version 7.1-essentials_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+    "sim_hz": 60
+  },
+  "result": {
+    "kind": "still",
+    "first_frame_time": 248.183333,
+    "frames": 1,
+    "frame_digest": "402f5d6686110380b670f16b1abf98235f9ece2179f61a7577bef612d45f954f",
+    "checkpoints": {},
+    "output_sha256": "bbcc885ef3dbaa32e7bb54ab321a91081905beec2216f9443f305398b8e57057",
+    "beats": 482,
+    "image_changes": 30,
+    "render_seconds": 4.55
+  }
+}

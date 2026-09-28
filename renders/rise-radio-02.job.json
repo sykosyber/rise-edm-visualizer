@@ -1,0 +1,73 @@
+{
+  "halokit": "1.0.0",
+  "engine": "1",
+  "job": {
+    "audio": "../assets/audio/rise-b.mp3",
+    "images": [
+      "../assets/images/visual-01.png"
+    ],
+    "output": "rise-radio-02.png",
+    "kind": "still",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "seed": 202,
+    "start": 0.0,
+    "duration": null,
+    "still_at": 87.1,
+    "halo": 0.0,
+    "image_order": "shuffle",
+    "beats_per_change": 16,
+    "min_hold": 6.5,
+    "fallback_min": 15.0,
+    "fallback_max": 24.0,
+    "crossfade": 1.35,
+    "grain": 1.0,
+    "show_brand": true,
+    "brand": "RISE RADIO",
+    "subbrand": "SYBERLABS \u00b7 AUDIO/IMAGE REACTIVE SYSTEM",
+    "font": null,
+    "title": null,
+    "crf": 20,
+    "preset": "medium",
+    "audio_bitrate": "192k"
+  },
+  "inputs": {
+    "audio": {
+      "path": "../assets/audio/rise-b.mp3",
+      "sha256": "1798d110349f9dc2497d52d8db28674ac9056e5dee6aa5c0faa45f739c887c31",
+      "seconds": 207.36
+    },
+    "images": [
+      {
+        "path": "../assets/images/visual-01.png",
+        "sha256": "0a19c3aba2a8538565f832ba316332ff1d69033e3056d6af68565781a85d8848"
+      }
+    ],
+    "font": {
+      "path": "C:\\Windows\\Fonts\\segoeuib.ttf",
+      "sha256": "aeb9e4a6ec5cc59f4d72df8189032d7dbb28f45161cf1552174818b5465dac4e"
+    }
+  },
+  "env": {
+    "python": "3.11.4",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "pillow": "12.3.0",
+    "imageio_ffmpeg": "0.6.0",
+    "ffmpeg": "ffmpeg version 7.1-essentials_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+    "sim_hz": 60
+  },
+  "result": {
+    "kind": "still",
+    "first_frame_time": 87.1,
+    "frames": 1,
+    "frame_digest": "14d518a3de270db4f3456cb5f203dc4470e3427f32d2300046c16078118ba554",
+    "checkpoints": {},
+    "output_sha256": "240ff380031d758c0a0a163ad23021cc52454de564b5e1bda3786cbbfcb46a3b",
+    "beats": 263,
+    "image_changes": 0,
+    "render_seconds": 4.64
+  }
+}
