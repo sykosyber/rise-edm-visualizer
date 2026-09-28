@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#020408" />
+  <title>RISE RADIO — Reactive Visualizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app" class="app" data-state="idle">
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <section class="visual-stage" aria-label="RISE reactive visualizer">
+      <div class="backdrop-wrap" aria-hidden="true">
+        <img id="backdropA" class="backdrop active" alt="" />
+        <img id="backdropB" class="backdrop" alt="" />
+      </div>
+
+      <div id="artFrame" class="art-frame" aria-hidden="true">
+        <img id="artA" class="art active" alt="" />
+        <img id="artB" class="art" alt="" />
+        <div class="art-glass"></div>
+      </div>
+
+      <canvas id="halo" aria-hidden="true"></canvas>
+      <div id="flash" class="flash" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+      <div class="scanlines" aria-hidden="true"></div>
+    </section>
+
+    <header class="brandbar">
+      <div>
+        <div class="brand">RISE RADIO</div>
+        <div class="subbrand">SYBERLABS · AUDIO/IMAGE REACTIVE SYSTEM</div>
+      </div>
+      <div id="meter" class="meter" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </header>
+
+    <div id="startGate" class="start-gate">
+      <button id="startButton" class="start-button" type="button">
+        <span class="start-icon">▶</span>
+        <span>ENTER RISE RADIO</span>
+      </button>
+      <p>Headphones recommended · audio starts on interaction</p>
+    </div>
+
+    <section class="controls" aria-label="Player controls">
+      <div class="track-meta">
+        <span id="trackIndex" class="eyebrow">01 / 03</span>
+        <strong id="trackTitle">Living Frames</strong>
+        <span id="energyLabel" class="energy-label">IDLE</span>
+      </div>
+
+      <div class="timeline-row">
+        <span id="currentTime">0:00</span>
+        <input id="seek" class="seek" type="range" min="0" max="1000" value="0" aria-label="Seek" />
+        <span id="duration">0:00</span>
+      </div>
+
+      <div class="control-row">
+        <button id="prevTrack" class="icon-button" type="button" title="Previous track" aria-label="Previous track">⏮</button>
+        <button id="playPause" class="play-button" type="button" aria-label="Play">▶</button>
+        <button id="nextTrack" class="icon-button" type="button" title="Next track" aria-label="Next track">⏭</button>
+        <span class="divider"></span>
+        <button id="shuffleImage" class="pill active" type="button" title="Shuffle visual now">VISUAL ↻</button>
+        <button id="autoVisual" class="pill active" type="button" aria-pressed="true">AUTO VISUAL ON</button>
+        <button id="intensity" class="pill" type="button">HALO 100%</button>
+        <button id="fullscreen" class="pill" type="button">FULLSCREEN</button>
+      </div>
+    </section>
+
+    <audio id="audio" preload="metadata"></audio>
+  </main>
+
+  <script src="visualizer.js"></script>
+</body>
+</html>

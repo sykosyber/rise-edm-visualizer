@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.egg-info/
+halokit-workspace/
+renders/_legacy/
+renders/*.partial.*
+renders/_run.log
+# rendered videos exceed GitHub's 100 MB limit; rebuild with: python -m halokit run jobs/*.json
+renders/*.mp4

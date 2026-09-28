@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "halokit"
+version = "1.0.0"
+description = "Reproducible audio-reactive halo renders: set any images to any music (CLI + local web UI)."
+readme = "README.md"
+requires-python = ">=3.10"
+# Ranges for installing; requirements.lock pins the exact versions renders are verified against.
+dependencies = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "pillow>=10",
+  "opencv-python-headless>=4.9",
+  "imageio-ffmpeg>=0.5",
+]
+
+[project.scripts]
+halokit = "halokit.cli:main"
+
+[tool.setuptools]
+packages = ["halokit", "halokit.ui"]
+
+[tool.setuptools.package-data]
+"halokit.ui" = ["index.html"]

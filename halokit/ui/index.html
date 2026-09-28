@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>halokit</title>
+<style>
+  :root {
+    --bg: #03060c; --panel: rgba(10, 18, 32, .72); --panel-2: rgba(16, 28, 48, .6);
+    --line: rgba(190, 220, 255, .14); --line-2: rgba(190, 220, 255, .26);
+    --text: #eef5ff; --muted: rgba(215, 230, 255, .6); --faint: rgba(215, 230, 255, .38);
+    --accent: #a9d7ff; --accent-2: #5fb0ff; --good: #7ee0b0; --bad: #ff8a9a; --warn: #ffd27e;
+    --radius: 14px; --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body {
+    font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    background: radial-gradient(1200px 700px at 70% -10%, rgba(30, 112, 255, .16), transparent 60%),
+                radial-gradient(900px 600px at -10% 110%, rgba(138, 201, 255, .10), transparent 60%), var(--bg);
+  }
+  button, input, select { font: inherit; color: inherit; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 28px 8px; }
+  .brand { font-weight: 760; letter-spacing: .33em; font-size: 13px; }
+  .sub { color: var(--muted); font-size: 10px; letter-spacing: .18em; margin-top: 6px; }
+  .ws { color: var(--faint); font: 11px var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 46vw; }
+  main { display: grid; grid-template-columns: minmax(340px, 470px) 1fr; gap: 20px; padding: 16px 28px 40px; }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; padding: 12px 16px 32px; } header { padding: 18px 16px 4px; } }
+  .col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; backdrop-filter: blur(14px); }
+  h2 { margin: 0 0 12px; font-size: 11px; letter-spacing: .16em; font-weight: 700; color: var(--accent); display: flex; justify-content: space-between; align-items: center; }
+  h2 small { color: var(--faint); letter-spacing: .06em; font-weight: 500; }
+  .drop { border: 1px dashed var(--line-2); border-radius: 12px; padding: 16px; text-align: center; color: var(--muted); cursor: pointer; transition: background .15s, border-color .15s; }
+  .drop.over, .drop:hover { background: rgba(95, 176, 255, .08); border-color: var(--accent-2); color: var(--text); }
+  .drop b { color: var(--text); }
+  .row { display: flex; gap: 8px; align-items: center; }
+  .row > * { min-width: 0; }
+  input[type=text], input[type=number], select {
+    width: 100%; background: rgba(0, 0, 0, .28); border: 1px solid var(--line); border-radius: 9px; padding: 7px 9px; outline: none;
+  }
+  input:focus, select:focus { border-color: var(--accent-2); }
+  input[type=range] { width: 100%; accent-color: var(--accent-2); }
+  .btn { background: rgba(255, 255, 255, .06); border: 1px solid var(--line-2); border-radius: 999px; padding: 7px 14px; cursor: pointer; white-space: nowrap; font-size: 12px; letter-spacing: .04em; }
+  .btn:hover { background: rgba(169, 215, 255, .14); }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .btn.primary { background: linear-gradient(180deg, #7cc2ff, #3d8fe8); border-color: transparent; color: #03101f; font-weight: 700; }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn.small { padding: 4px 10px; font-size: 11px; }
+  .btn.ghost { border-color: transparent; background: none; color: var(--muted); }
+  .muted { color: var(--muted); } .faint { color: var(--faint); font-size: 12px; }
+  .file { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--panel-2); border-radius: 10px; margin-top: 10px; }
+  .file .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  audio { width: 100%; margin-top: 10px; height: 34px; }
+  .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; margin-top: 10px; }
+  .thumb { position: relative; aspect-ratio: 1; border-radius: 9px; overflow: hidden; border: 1px solid var(--line); background: #000; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb .n { position: absolute; left: 5px; top: 4px; font: 10px var(--mono); background: rgba(0,0,0,.6); padding: 1px 5px; border-radius: 6px; }
+  .thumb .tools { position: absolute; inset: auto 0 0 0; display: flex; justify-content: space-between; padding: 3px; opacity: 0; transition: opacity .15s; background: linear-gradient(transparent, rgba(0,0,0,.75)); }
+  .thumb:hover .tools, .thumb:focus-within .tools { opacity: 1; }
+  .thumb .tools button { background: rgba(0,0,0,.55); border: 0; border-radius: 6px; width: 22px; height: 22px; cursor: pointer; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+  .grid label, .field { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--muted); letter-spacing: .04em; }
+  .grid .full { grid-column: 1 / -1; }
+  .val { color: var(--text); font: 11px var(--mono); }
+  details { margin-top: 10px; } summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+  .lib { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chip { font-size: 11px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); cursor: pointer; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .chip:hover { border-color: var(--accent-2); }
+  .stage { position: relative; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 9; display: grid; place-items: center; }
+  .stage img, .stage video { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .stage .empty { color: var(--faint); font-size: 12px; text-align: center; padding: 20px; }
+  .spinner { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(169,215,255,.2); border-top-color: var(--accent); animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .overlay { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.45); }
+  pre { margin: 0; font: 11.5px/1.5 var(--mono); white-space: pre-wrap; word-break: break-all; background: rgba(0,0,0,.35); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; color: #cfe6ff; }
+  .job { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--panel-2); display: flex; flex-direction: column; gap: 8px; }
+  .job + .job { margin-top: 10px; }
+  .job .top { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+  .badge { font-size: 10px; letter-spacing: .12em; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; text-transform: uppercase; }
+  .s-running, .s-queued { color: var(--accent); } .s-done { color: var(--good); } .s-failed, .s-interrupted { color: var(--bad); } .s-cancelled { color: var(--faint); }
+  .bar { height: 4px; background: rgba(255,255,255,.08); border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, #5fb0ff, #b5e0ff); width: 0; transition: width .4s; }
+  .actions { display: flex; flex-wrap: wrap; gap: 6px; }
+  .err { color: var(--bad); font: 11px var(--mono); white-space: pre-wrap; }
+  .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: #0f2038; border: 1px solid var(--line-2); padding: 9px 16px; border-radius: 999px; font-size: 12px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 10; }
+  .toast.show { opacity: 1; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">HALOKIT</div>
+    <div class="sub">ANY IMAGES · ANY MUSIC · REPRODUCIBLE RENDERS</div>
+  </div>
+  <div class="ws" id="ws"></div>
+</header>
+
+<main>
+  <div class="col">
+    <section>
+      <h2>MUSIC <small id="audioInfo"></small></h2>
+      <div class="drop" id="audioDrop" tabindex="0"><b>Drop a track</b> or click to choose<br><span class="faint">mp3 · wav · flac · m4a · ogg …</span></div>
+      <input type="file" id="audioInput" accept="audio/*,.mp3,.wav,.flac,.m4a,.ogg,.opus,.aac" class="sr">
+      <div id="audioSel"></div>
+      <details><summary>Import by path / library</summary>
+        <div class="row" style="margin-top:8px"><input type="text" id="audioPath" placeholder="C:\path\to\song.mp3"><button class="btn small" id="audioImport">Import</button></div>
+        <div class="lib" id="audioLib"></div>
+      </details>
+    </section>
+
+    <section>
+      <h2>IMAGES <small id="imgInfo"></small></h2>
+      <div class="drop" id="imgDrop" tabindex="0"><b>Drop images</b> or click to choose<br><span class="faint">one or many · any aspect ratio (cover-fit)</span></div>
+      <input type="file" id="imgInput" accept="image/*" multiple class="sr">
+      <div class="thumbs" id="thumbs"></div>
+      <details><summary>Import a file or folder by path / library</summary>
+        <div class="row" style="margin-top:8px"><input type="text" id="imgPath" placeholder="C:\path\to\folder"><button class="btn small" id="imgImport">Import</button></div>
+        <div class="lib" id="imgLib"></div>
+      </details>
+    </section>
+
+    <section>
+      <h2>LOOK &amp; OUTPUT</h2>
+      <div class="grid">
+        <label>Size<select id="size">
+          <option value="1920x1080">1920×1080 · 16:9</option><option value="1280x720">1280×720 · 16:9</option>
+          <option value="3840x2160">3840×2160 · 4K</option><option value="1080x1080">1080×1080 · square</option>
+          <option value="1080x1350">1080×1350 · 4:5</option><option value="1080x1920">1080×1920 · vertical</option></select></label>
+        <label>Frame rate<select id="fps"><option>24</option><option selected>30</option><option>60</option></select></label>
+        <label class="full">Halo intensity <span class="val" id="haloV"></span><input type="range" id="halo" min="0" max="2" step="0.05"></label>
+        <label>Image order<select id="image_order"><option value="shuffle">Shuffle</option><option value="sequence">In order</option></select></label>
+        <label>Change every N beats<input type="number" id="beats_per_change" min="0" step="1"></label>
+        <label>Min hold (s)<input type="number" id="min_hold" min="0" step="0.5"></label>
+        <label>Crossfade (s)<input type="number" id="crossfade" min="0.05" step="0.05"></label>
+        <label>Quiet-passage change (s)<div class="row"><input type="number" id="fallback_min" min="1" step="1"><span class="faint">–</span><input type="number" id="fallback_max" min="1" step="1"></div></label>
+        <label>Film grain <span class="val" id="grainV"></span><input type="range" id="grain" min="0" max="2" step="0.05"></label>
+        <label>Seed<div class="row"><input type="number" id="seed" step="1"><button class="btn small" id="dice" title="New random seed">🎲</button></div></label>
+        <label>Quality (CRF, lower = better) <span class="val" id="crfV"></span><input type="range" id="crf" min="14" max="30" step="1"></label>
+        <label class="full">Section of the track <span class="val" id="rangeV"></span>
+          <div class="row"><input type="number" id="start" min="0" step="0.5" placeholder="start s"><input type="number" id="duration" min="0" step="0.5" placeholder="length s (blank = to end)"></div></label>
+        <label class="full"><span><input type="checkbox" id="show_brand"> Show brand text &amp; level meter</span></label>
+        <label>Brand<input type="text" id="brand"></label>
+        <label>Sub-brand<input type="text" id="subbrand"></label>
+        <label>Metadata title<input type="text" id="title" placeholder="(none)"></label>
+        <label>Output name<input type="text" id="name" placeholder="from the track name"></label>
+      </div>
+    </section>
+  </div>
+
+  <div class="col">
+    <section>
+      <h2>PREVIEW <small id="prevInfo">one frame at any moment</small></h2>
+      <div class="stage" id="stage"><div class="empty">Add a track and at least one image,<br>then preview any moment.</div></div>
+      <div class="row" style="margin-top:12px">
+        <input type="range" id="prevT" min="0" max="100" step="0.1" value="30" aria-label="Preview time">
+        <span class="val" id="prevTV" style="min-width:52px;text-align:right">0:30</span>
+        <button class="btn small" id="peak" title="Jump to the loudest moment">Peak</button>
+        <button class="btn" id="previewBtn">Preview</button>
+      </div>
+      <div class="row" style="margin-top:14px; justify-content:flex-end; gap:10px">
+        <button class="btn" id="stillBtn">Render still</button>
+        <button class="btn primary" id="renderBtn">Render video</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>COMMAND LINE <button class="btn small ghost" id="copyCli">Copy</button></h2>
+      <pre id="cli"></pre>
+      <p class="faint" style="margin:8px 0 0">Every render also writes a <b>.job.json</b> manifest next to its output. <span style="font-family:var(--mono)">python -m halokit render --config that.job.json</span> rebuilds it exactly, and <span style="font-family:var(--mono)">verify</span> proves it.</p>
+    </section>
+
+    <section>
+      <h2>RENDERS <small id="jobInfo"></small></h2>
+      <div id="jobs"><div class="faint">Nothing rendered yet.</div></div>
+    </section>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const KEY = 'halokit.ui.v1';
+  let S = { audio: null, images: [], settings: {}, previewT: 30 };
+  let defaults = {}, workspace = '', audioDur = 0, pollTimer = 0, openVideo = null;
+  const FIELDS = ['fps', 'halo', 'image_order', 'beats_per_change', 'min_hold', 'crossfade', 'fallback_min',
+                  'fallback_max', 'grain', 'seed', 'crf', 'start', 'duration', 'show_brand', 'brand', 'subbrand', 'title'];
+  const NUM = new Set(['fps', 'halo', 'beats_per_change', 'min_hold', 'crossfade', 'fallback_min', 'fallback_max', 'grain', 'seed', 'crf', 'start', 'duration']);
+
+  const toast = (msg) => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2200); };
+  const fmt = s => { if (!isFinite(s)) return '—'; s = Math.max(0, s); const m = Math.floor(s / 60); return `${m}:${String(Math.floor(s % 60)).padStart(2, '0')}`; };
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (_) {} };
+  const api = async (path, opts = {}) => {
+    const r = await fetch(path, opts);
+    const j = await r.json().catch(() => ({ error: r.statusText }));
+    if (!r.ok || j.error) throw new Error(j.error || r.statusText);
+    return j;
+  };
+
+  // ---- settings form -------------------------------------------------------
+  function readForm() {
+    const o = {};
+    for (const f of FIELDS) {
+      const el = $('#' + f); if (!el) continue;
+      if (el.type === 'checkbox') o[f] = el.checked;
+      else if (NUM.has(f)) { if (el.value === '') o[f] = (f === 'duration') ? null : defaults[f]; else o[f] = Number(el.value); }
+      else o[f] = el.value === '' && f === 'title' ? null : el.value;
+    }
+    const [w, h] = $('#size').value.split('x').map(Number);
+    o.width = w; o.height = h; o.name = $('#name').value.trim();
+    return o;
+  }
+  function writeForm(o) {
+    for (const f of FIELDS) {
+      const el = $('#' + f); if (!el || o[f] === undefined) continue;
+      if (el.type === 'checkbox') el.checked = !!o[f]; else el.value = o[f] ?? '';
+    }
+    if (o.width) { const v = `${o.width}x${o.height}`; if ([...$('#size').options].some(x => x.value === v)) $('#size').value = v; }
+    $('#name').value = o.name || '';
+  }
+  function onForm() {
+    S.settings = readForm();
+    $('#haloV').textContent = Math.round(S.settings.halo * 100) + '%';
+    $('#grainV').textContent = S.settings.grain.toFixed(2);
+    $('#crfV').textContent = S.settings.crf;
+    const st = S.settings.start || 0, du = S.settings.duration;
+    $('#rangeV').textContent = audioDur ? `${fmt(st)} → ${fmt(du ? st + du : audioDur)}` : '';
+    const [w, h] = [S.settings.width, S.settings.height];
+    $('#stage').style.aspectRatio = `${w} / ${h}`;
+    save(); renderCli();
+  }
+
+  function spec(kind) {
+    return { ...S.settings, kind, audio: S.audio && S.audio.path, images: S.images.map(i => i.path) };
+  }
+  function renderCli() {
+    const q = p => /[\s"]/.test(p) ? `"${p}"` : p;
+    const abs = p => workspace ? (workspace.replace(/\\/g, '/') + '/' + p) : p;
+    const o = S.settings, d = defaults, parts = ['python -m halokit render'];
+    parts.push(S.audio ? q(abs(S.audio.path)) : '<song.mp3>');
+    if (S.images.length) S.images.forEach(i => parts.push(q(abs(i.path)))); else parts.push('<images…>');
+    parts.push('-o', q((o.name || (S.audio ? S.audio.name.replace(/\.[^.]+$/, '') : 'out')) + '.mp4'));
+    if (o.width !== d.width || o.height !== d.height) parts.push('--size', `${o.width}x${o.height}`);
+    const flag = { fps: '--fps', seed: '--seed', halo: '--halo', image_order: '--order', beats_per_change: '--beats-per-change',
+      min_hold: '--min-hold', crossfade: '--crossfade', fallback_min: '--fallback-min', fallback_max: '--fallback-max',
+      grain: '--grain', crf: '--crf', start: '--start', duration: '--duration', brand: '--brand', subbrand: '--subbrand', title: '--title' };
+    for (const [k, f] of Object.entries(flag)) {
+      const v = o[k]; if (v === null || v === undefined || v === '' || v === d[k]) continue;
+      parts.push(f, typeof v === 'string' ? q(v) : String(v));
+    }
+    if (!o.show_brand) parts.push('--no-brand');
+    $('#cli').textContent = parts.join(' ');
+  }
+
+  // ---- inputs ----------------------------------------------------------------
+  async function upload(files, kind) {
+    const out = [];
+    for (const f of files) {
+      toast(`Uploading ${f.name}…`);
+      out.push(await api('/api/upload?name=' + encodeURIComponent(f.name), { method: 'POST', body: f }));
+    }
+    return out;
+  }
+  function setAudio(a) { S.audio = a; renderAudio(); save(); renderCli(); }
+  function addImages(list) {
+    const have = new Set(S.images.map(i => i.path));
+    for (const i of list) if (i.kind === 'image' && !have.has(i.path)) { S.images.push(i); have.add(i.path); }
+    renderImages(); save(); renderCli();
+  }
+  function renderAudio() {
+    const box = $('#audioSel');
+    if (!S.audio) { box.innerHTML = ''; $('#audioInfo').textContent = ''; return; }
+    box.innerHTML = `<div class="file"><span>♪</span><span class="name">${esc(S.audio.name)}</span><button class="btn small ghost" id="audioClear" aria-label="Remove track">✕</button></div>
+      <audio controls preload="metadata" src="${S.audio.url}"></audio>`;
+    $('#audioClear').onclick = () => setAudio(null);
+    const au = box.querySelector('audio');
+    au.addEventListener('loadedmetadata', () => {
+      audioDur = au.duration; $('#audioInfo').textContent = fmt(audioDur);
+      $('#prevT').max = Math.max(1, audioDur).toFixed(1);
+      if (S.previewT > audioDur) S.previewT = audioDur / 2;
+      $('#prevT').value = S.previewT; $('#prevTV').textContent = fmt(S.previewT); onForm();
+    });
+  }
+  function renderImages() {
+    const g = $('#thumbs');
+    $('#imgInfo').textContent = S.images.length ? `${S.images.length} image${S.images.length > 1 ? 's' : ''}` : '';
+    g.innerHTML = S.images.map((im, i) => `<div class="thumb" title="${esc(im.name)}"><img src="${im.url}" alt="${esc(im.name)}" loading="lazy">
+      <span class="n">${i + 1}</span><div class="tools"><button data-a="l" data-i="${i}" aria-label="Move left">‹</button>
+      <button data-a="x" data-i="${i}" aria-label="Remove">✕</button><button data-a="r" data-i="${i}" aria-label="Move right">›</button></div></div>`).join('');
+  }
+  $('#thumbs').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const i = +b.dataset.i, a = b.dataset.a;
+    if (a === 'x') S.images.splice(i, 1);
+    else { const j = a === 'l' ? i - 1 : i + 1; if (j < 0 || j >= S.images.length) return; [S.images[i], S.images[j]] = [S.images[j], S.images[i]]; }
+    renderImages(); save(); renderCli();
+  });
+
+  function dropzone(zone, input, handler) {
+    zone.addEventListener('click', () => input.click());
+    zone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
+    input.addEventListener('change', () => { handler([...input.files]); input.value = ''; });
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+    zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('over'); handler([...e.dataTransfer.files]); });
+  }
+  dropzone($('#audioDrop'), $('#audioInput'), async files => {
+    const f = files.find(f => f.type.startsWith('audio') || /\.(mp3|wav|flac|m4a|ogg|opus|aac|aiff?)$/i.test(f.name));
+    if (!f) return toast('That is not an audio file');
+    try { setAudio((await upload([f]))[0]); toast('Track added'); refresh(); } catch (e) { toast(e.message); }
+  });
+  dropzone($('#imgDrop'), $('#imgInput'), async files => {
+    files = files.filter(f => f.type.startsWith('image') || /\.(png|jpe?g|webp|bmp|gif|tiff?)$/i.test(f.name));
+    if (!files.length) return toast('No images in that drop');
+    try { addImages(await upload(files)); toast(`${files.length} image(s) added`); refresh(); } catch (e) { toast(e.message); }
+  });
+  async function importPath(inputSel, kind) {
+    const p = $(inputSel).value.trim(); if (!p) return;
+    try {
+      const list = await api('/api/import', { method: 'POST', body: JSON.stringify({ paths: [p] }) });
+      if (kind === 'audio') { const a = list.find(x => x.kind === 'audio'); if (!a) throw new Error('No audio at that path'); setAudio(a); }
+      else addImages(list);
+      $(inputSel).value = ''; toast('Imported'); refresh();
+    } catch (e) { toast(e.message); }
+  }
+  $('#audioImport').onclick = () => importPath('#audioPath', 'audio');
+  $('#imgImport').onclick = () => importPath('#imgPath', 'image');
+
+  // ---- preview & render --------------------------------------------------------------
+  function ready() {
+    if (!S.audio) { toast('Add a track first'); return false; }
+    if (!S.images.length) { toast('Add at least one image'); return false; }
+    return true;
+  }
+  async function preview(peak) {
+    if (!ready()) return;
+    const stage = $('#stage');
+    stage.insertAdjacentHTML('beforeend', '<div class="overlay" id="ov"><div class="spinner"></div></div>');
+    $('#previewBtn').disabled = true;
+    try {
+      const r = await api('/api/preview', { method: 'POST', body: JSON.stringify({ ...spec('still'), still_at: peak ? null : S.previewT }) });
+      stage.innerHTML = `<img src="${r.url}" alt="Preview frame at ${fmt(r.at)}">`;
+      $('#prevInfo').textContent = `frame at ${fmt(r.at)}`;
+      if (peak) { S.previewT = r.at; $('#prevT').value = r.at; $('#prevTV').textContent = fmt(r.at); save(); }
+    } catch (e) { toast(e.message); document.getElementById('ov')?.remove(); }
+    $('#previewBtn').disabled = false;
+  }
+  $('#prevT').addEventListener('input', e => { S.previewT = +e.target.value; $('#prevTV').textContent = fmt(S.previewT); save(); });
+  $('#prevT').addEventListener('change', () => preview(false));
+  $('#previewBtn').onclick = () => preview(false);
+  $('#peak').onclick = () => preview(true);
+  async function start(kind) {
+    if (!ready()) return;
+    const body = { ...spec(kind) };
+    if (kind === 'still') body.still_at = S.previewT;
+    try { await api('/api/render', { method: 'POST', body: JSON.stringify(body) }); toast(kind === 'still' ? 'Still queued' : 'Render started'); refresh(); }
+    catch (e) { toast(e.message); }
+  }
+  $('#renderBtn').onclick = () => start('video');
+  $('#stillBtn').onclick = () => start('still');
+  $('#dice').onclick = () => { $('#seed').value = Math.floor(Math.random() * 1e6); onForm(); };
+  $('#copyCli').onclick = () => navigator.clipboard.writeText($('#cli').textContent).then(() => toast('Command copied'));
+
+  // ---- jobs ---------------------------------------------------------------------------
+  function renderJobs(jobs) {
+    const box = $('#jobs');
+    const active = jobs.filter(j => j.state === 'running' || j.state === 'queued').length;
+    $('#jobInfo').textContent = active ? `${active} running` : '';
+    if (!jobs.length) { box.innerHTML = '<div class="faint">Nothing rendered yet.</div>'; return active; }
+    box.innerHTML = jobs.map(j => {
+      const pct = j.total ? (100 * j.done / j.total) : (j.state === 'done' ? 100 : 0);
+      const fps = j.elapsed ? j.done / j.elapsed : 0;
+      const eta = fps && j.total ? (j.total - j.done) / fps : 0;
+      const stats = j.state === 'running' ? `${j.done}/${j.total || '…'} · ${fps.toFixed(1)} fps · eta ${fmt(eta)}`
+                  : j.state === 'done' && j.result ? `${j.result.frames} frame(s) · ${j.result.render_seconds}s · ${j.result.beats} beats` : '';
+      const url = '/files/' + j.output, man = '/files/' + j.manifest;
+      const media = openVideo === j.id ? (j.kind === 'still' ? `<img src="${url}" alt="" style="width:100%;border-radius:9px">`
+                    : `<video src="${url}" controls autoplay style="width:100%;border-radius:9px"></video>`) : '';
+      return `<div class="job"><div class="top"><div><b>${esc(j.name)}</b> <span class="faint">${j.kind} · ${esc(j.id)}</span></div>
+        <span class="badge s-${j.state}">${j.state}</span></div>
+        ${j.state === 'running' || j.state === 'queued' ? `<div class="bar"><i style="width:${pct.toFixed(1)}%"></i></div>` : ''}
+        ${stats ? `<div class="faint">${stats}</div>` : ''}
+        ${j.error ? `<div class="err">${esc(j.error)}</div>` : ''}
+        ${media}
+        <div class="actions">
+          ${j.state === 'running' || j.state === 'queued' ? `<button class="btn small" data-cancel="${j.id}">Cancel</button>` : ''}
+          ${j.state === 'done' ? `<button class="btn small" data-open="${j.id}">${openVideo === j.id ? 'Hide' : (j.kind === 'still' ? 'View' : 'Play')}</button>
+            <a class="btn small" href="${url}" download>Download</a><a class="btn small" href="${man}" target="_blank" rel="noopener">Manifest</a>` : ''}
+          <button class="btn small ghost" data-cli="${esc(j.command)}">Copy CLI</button>
+        </div></div>`;
+    }).join('');
+    return active;
+  }
+  $('#jobs').addEventListener('click', async e => {
+    const b = e.target.closest('[data-cancel],[data-open],[data-cli]'); if (!b) return;
+    if (b.dataset.cancel) { await api(`/api/jobs/${b.dataset.cancel}/cancel`, { method: 'POST' }).catch(x => toast(x.message)); refresh(); }
+    else if (b.dataset.open) { openVideo = openVideo === b.dataset.open ? null : b.dataset.open; refresh(); }
+    else if (b.dataset.cli) navigator.clipboard.writeText(b.dataset.cli).then(() => toast('Command copied'));
+  });
+
+  function renderLib(uploads) {
+    const aud = uploads.filter(u => u.kind === 'audio'), img = uploads.filter(u => u.kind === 'image');
+    $('#audioLib').innerHTML = aud.map((u, i) => `<button class="chip" data-a="${i}" title="${esc(u.name)}">♪ ${esc(u.name)}</button>`).join('') || '<span class="faint">No tracks yet</span>';
+    $('#imgLib').innerHTML = img.length ? `<button class="chip" data-all="1">+ all ${img.length}</button>` + img.map((u, i) => `<button class="chip" data-i="${i}" title="${esc(u.name)}">${esc(u.name)}</button>`).join('') : '<span class="faint">No images yet</span>';
+    $('#audioLib').onclick = e => { const b = e.target.closest('[data-a]'); if (b) setAudio(aud[+b.dataset.a]); };
+    $('#imgLib').onclick = e => { const b = e.target.closest('button'); if (!b) return; addImages(b.dataset.all ? img : [img[+b.dataset.i]]); };
+  }
+
+  async function refresh() {
+    clearTimeout(pollTimer);
+    let active = 0;
+    try {
+      const st = await api('/api/state');
+      workspace = st.workspace; $('#ws').textContent = `workspace: ${st.workspace}`;
+      if (!Object.keys(defaults).length) {
+        defaults = st.defaults;
+        writeForm({ ...defaults, ...S.settings });
+        onForm();
+      }
+      renderLib(st.uploads);
+      active = renderJobs(st.jobs);
+    } catch (e) { $('#ws').textContent = 'server unreachable — is `python -m halokit ui` running?'; }
+    pollTimer = setTimeout(refresh, active ? 1000 : 4000);
+  }
+
+  // ---- boot -------------------------------------------------------------------------------
+  try { const saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved) S = { ...S, ...saved }; } catch (_) {}
+  document.querySelectorAll('section input, section select').forEach(el => {
+    if (['audioInput', 'imgInput', 'audioPath', 'imgPath', 'prevT'].includes(el.id)) return;
+    el.addEventListener('input', onForm); el.addEventListener('change', onForm);
+  });
+  renderAudio(); renderImages(); refresh();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "audio": "../assets/audio/rise-c.mp3",
+  "images": [
+    "../assets/images"
+  ],
+  "output": "../renders/rise-c-halo.png",
+  "kind": "still",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "seed": 777,
+  "start": 0.0,
+  "duration": null,
+  "still_at": null,
+  "halo": 1.0,
+  "image_order": "shuffle",
+  "beats_per_change": 16,
+  "min_hold": 6.5,
+  "fallback_min": 15.0,
+  "fallback_max": 24.0,
+  "crossfade": 1.35,
+  "grain": 1.0,
+  "show_brand": true,
+  "brand": "RISE RADIO",
+  "subbrand": "SYBERLABS \u00b7 AUDIO/IMAGE REACTIVE SYSTEM",
+  "font": null,
+  "title": null,
+  "crf": 20,
+  "preset": "medium",
+  "audio_bitrate": "192k"
+}
